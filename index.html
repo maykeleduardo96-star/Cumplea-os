@@ -17,8 +17,10 @@
             touch-action: manipulation;
         }
 
+        .allow-scroll { overflow-y: auto !important; display: block !important; padding: 20px 0; }
+
         .overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%); 
             z-index: 1; 
         }
@@ -28,136 +30,124 @@
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 35px; padding: 35px 25px;
-            width: 88%; max-width: 400px; min-height: 520px;
-            display: flex; flex-direction: column;
+            border-radius: 35px; padding: 30px 20px;
+            width: 90%; max-width: 400px; min-height: 500px;
+            margin: auto; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             text-align: center; color: white;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            animation: cardAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes cardAppear {
-            from { opacity: 0; transform: scale(0.8) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; margin: 0 0 15px 0; color: #ff99cc; text-shadow: 0 0 20px rgba(255, 153, 204, 0.6); }
-        h2 { font-size: 1.5rem; margin-bottom: 20px; color: #fff; }
-        p { font-size: 1rem; line-height: 1.6; color: #f0f0f0; margin-bottom: 20px; }
-
+        
         .letter-content {
-            text-align: left;
-            font-size: 0.95rem;
-            max-height: 280px;
-            overflow-y: auto;
-            padding-right: 10px;
-            margin-bottom: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 15px;
+            text-align: left; font-size: 0.95rem; max-height: 280px;
+            overflow-y: auto; padding-right: 10px; margin-bottom: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;
+            line-height: 1.6;
         }
-
-        .letter-content::-webkit-scrollbar { width: 4px; }
-        .letter-content::-webkit-scrollbar-thumb { background: rgba(255, 153, 204, 0.5); border-radius: 10px; }
 
         .btn-main {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            border: none; padding: 18px 0; border-radius: 50px;
-            color: white; font-size: 1.2rem; font-weight: 700;
-            width: 100%; max-width: 280px; cursor: pointer;
+            border: none; padding: 16px 0; border-radius: 50px;
+            color: white; font-size: 1.1rem; font-weight: 700;
+            width: 100%; max-width: 260px; cursor: pointer;
             box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
         .btn-ghost { 
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); 
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); 
             padding: 12px; border-radius: 50px; color: white; width: 100%; 
-            max-width: 280px; font-size: 0.9rem; margin-top: 15px; 
+            max-width: 260px; font-size: 0.9rem; margin-top: 15px; cursor: pointer;
         }
-
-        .photo-frame { width: 190px; height: 190px; margin-bottom: 25px; border-radius: 25px; border: 3px solid #ff99cc; overflow: hidden; box-shadow: 0 0 25px rgba(255, 153, 204, 0.3); }
-        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
-        .cat-gif { width: 110px; margin-bottom: 20px; border-radius: 15px; }
-        .hidden { display: none !important; }
 
         .error-console { 
-            color: #ff3333; font-family: 'Courier New', monospace; font-size: 0.85rem; text-align: left; 
-            background: rgba(0,0,0,0.7); padding: 15px; border-radius: 15px; 
-            border: 1px solid rgba(255, 51, 51, 0.4); width: 100%; min-height: 140px;
+            color: #ff3333; font-family: 'Courier New', monospace; font-size: 0.8rem; text-align: left; 
+            background: rgba(0,0,0,0.8); padding: 15px; border-radius: 15px; 
+            width: 100%; min-height: 180px; border: 1px solid #ff3333;
         }
 
-        .video-container { width: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #ff99cc; margin-top: 10px; }
-        video { width: 100%; display: block; background: black; }
-        #video-final-msg { margin-top: 25px; font-size: 1.1rem; line-height: 1.5; color: #ff99cc; opacity: 0; transition: opacity 2s ease; font-style: italic; text-shadow: 0 0 10px rgba(255,153,204,0.3); }
+        /* TEXTO MÁGICO FINAL */
+        #video-final-msg { 
+            margin-top: 20px; font-family: 'Dancing Script', cursive; font-size: 1.6rem;
+            color: #fff; min-height: 100px;
+        }
+
+        .typewriter-char {
+            opacity: 0; display: inline-block;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            animation: appearChar 0.5s forwards;
+            white-space: pre; /* Mantiene los espacios */
+        }
+
+        @keyframes appearChar {
+            from { opacity: 0; transform: scale(3); filter: blur(10px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        .hidden { display: none !important; }
+        .video-container { width: 100%; border-radius: 15px; overflow: hidden; border: 2px solid #ff99cc; background: #000; }
+        video { width: 100%; max-height: 220px; display: block; }
     </style>
 </head>
 <body>
 
     <div class="overlay"></div>
-
     <audio id="pookie-audio" loop>
         <source src="https://www.dropbox.com/scl/fi/i8pjh6dor59ef4xzu6hsf/Ed-Sheeran-Photograph-Subtitulado-al-Espa-ol..mp3?rlkey=vpe1cixqj20q3h7six0odizjb&st=2robfvey&dl=1" type="audio/mpeg">
     </audio>
 
     <div id="step1" class="card">
-        <div style="font-size: 3.5rem; margin-bottom: 20px;">✨</div>
-        <h1>Hola Ana</h1>
-        <p>¡Bienvenida a tu tutorial especial!<br>¿Lista para comenzar?</p>
+        <h1>Hola Ana ❤️</h1>
+        <p>Este no es un sitio web común.<br>Es un pedacito de mi corazón para ti.</p>
         <button class="btn-main" onclick="iniciarExperiencia()">Amonos</button>
     </div>
 
     <div id="step2" class="card hidden">
-        <div class="photo-frame">
-            <img src="https://www.dropbox.com/scl/fi/kktnissm1iyzltkt0bj7v/8f214fd9-fee4-4ce7-a275-17b4b6437de4.jpg?rlkey=qjqvxraqhbzdanaulrurjd2wj&st=dswefh8d&dl=1">
+        <div style="width: 170px; height: 170px; border-radius: 20px; border: 3px solid #ff99cc; overflow: hidden; margin-bottom: 20px;">
+            <img src="https://www.dropbox.com/scl/fi/kktnissm1iyzltkt0bj7v/8f214fd9-fee4-4ce7-a275-17b4b6437de4.jpg?rlkey=qjqvxraqhbzdanaulrurjd2wj&st=dswefh8d&dl=1" style="width:100%; height:100%; object-fit:cover;">
         </div>
-        <h2>Paso 1: Confirmación</h2>
-        <p>¿Es ella la cumpleañera más hermosa de todo el mundo?</p>
-        <div style="height: 80px; position: relative; width: 100%;">
-            <button id="troll-btn" class="btn-main" onclick="moverBoton()">Confirmar</button>
+        <h2>Confirmación Crítica</h2>
+        <p>El sistema necesita saber si eres la cumpleañera más hermosa antes de revelar el regalo.</p>
+        <div style="height: 60px; width: 100%; position: relative; display: flex; justify-content: center;">
+            <button id="troll-btn" class="btn-main" onclick="moverBoton()">¡SÍ, SOY YO! 😍</button>
         </div>
-        <button class="btn-ghost" onclick="showStep(3)">No soy yo</button>
+        <button class="btn-ghost" onclick="showStep(3)">No soy yo (Peligro)</button>
     </div>
 
     <div id="step3" class="card hidden">
-        <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" class="cat-gif">
-        <h2>¿Cómo que no? 🥺</h2>
-        <p>Si no eres tú, borraré todos los archivos del regalo...</p>
-        <button class="btn-main" id="fake-delete-btn" onmouseover="transformBtn()" onclick="showStep(4)">¡SÍ SOY YO! DETENTE</button>
+        <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" style="width:100px; margin-bottom:15px;">
+        <h2>¿CÓMO QUE NO? 🥺</h2>
+        <p>Si dices que no eres tú, el sistema interpretará que eres un intruso y borrará todos los recuerdos de estos 4 meses.</p>
+        <button class="btn-main" id="fake-delete-btn" onmouseover="transformBtn()" onclick="showStep(4)">¡MENTIRA! SÍ SOY YO 😱</button>
     </div>
 
     <div id="step4" class="card hidden">
-        <h2 style="color: #ff3333;">SISTEMA DAÑADO</h2>
+        <h2 style="color: #ff3333;">FALLO EN EL NÚCLEO</h2>
         <div class="error-console" id="console"></div>
-        <p id="status" style="margin-top: 15px;">Borrando recuerdos en 3, 2, 1...</p>
-        <button id="repair-btn" class="btn-main hidden" onclick="showStep(5)">REPARAR ARCHIVOS ❤️</button>
+        <button id="repair-btn" class="btn-main hidden" onclick="showStep(5)" style="margin-top:15px;">INTENTAR RECUPERACIÓN ❤️</button>
     </div>
 
     <div id="step5" class="card hidden">
-        <img src="https://media.tenor.com/YZA_f_6xO8AAAAAi/tkthao219-bubududu.gif" class="cat-gif">
-        <h2>¿Me amas mucho?</h2>
-        <p>(Atrápalo si es verdad)</p>
+        <img src="https://media.tenor.com/YZA_f_6xO8AAAAAi/tkthao219-bubududu.gif" style="width:100px;">
+        <h2>Nivel de Amor Requerido</h2>
+        <p>Para restaurar los archivos, el sensor de presión debe detectar cuánto me amas.</p>
         <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
-            <button id="shrink-btn" class="btn-main" style="width: auto; padding: 15px 40px;" onclick="showStep(6)">¡SÍ, MUCHO!</button>
+            <button id="shrink-btn" class="btn-main" style="width: auto; padding: 15px 40px;" onclick="showStep(6)">¡SÍ, MUCHO! ❤️</button>
         </div>
     </div>
 
     <div id="step6" class="card hidden">
-        <h1>Para Mi Ana ❤️</h1>
+        <h1>Mi Ana... ❤️</h1>
         <div class="letter-content">
             <p><strong>Feliz cumpleaños, mi Ana. Hoy celebro tu vida.</strong></p>
-            <p>Celebro el día en que llegaste a este mundo y, sin saberlo, el día en que algún día llegarías también al mío.</p>
-            <p>Y aunque estas palabras son un regalo, en realidad son solo un intento —imperfecto— de expresar todo lo que siento por ti. Han pasado apenas cuatro meses desde que nuestras vidas se cruzaron, y aun así siento que en ese corto tiempo hemos vivido una historia entera.</p>
-            <p>Nos encontramos sin buscarnos, casi como un susurro del destino. Primero fue una coincidencia, luego una conversación, después una costumbre… y sin darnos cuenta, nos convertimos en hogar el uno para el otro. Contigo aprendí que el amor no siempre llega con ruido, sino con calma.</p>
-            <p>Que a veces se construye en risas pequeñas, en noches largas, en juegos compartidos, en películas vistas juntos, en silencios que no incomodan.</p>
-            <p>Pero también aprendí que amar no es fácil. Que el amor verdadero se pone a prueba, duele, tambalea… y aun así decide quedarse. Hemos pasado por momentos hermosos y por momentos difíciles.</p>
-            <p>Hubo días en los que sentí miedo de perderte, noches en las que el silencio pesó demasiado y emociones que nos desbordaron a ambos. Pero aquí estamos. Y eso, para mí, significa todo.</p>
-            <p>Gracias por volver, por mirar hacia nosotros, por elegir intentarlo de nuevo. Gracias por abrir tu corazón cuando no era fácil hacerlo, por permitirnos sanar, por crecer conmigo. No te imaginas cuánto valoro eso.</p>
-            <p>Quiero que sepas que te amo no solo por quien eres cuando todo va bien, sino también por quien eres cuando dudas, cuando te cierras, cuando te cuesta. Te amo con conciencia, con paciencia, con un amor que no busca poseer, sino acompañar.</p>
-            <p>Te amo queriendo cuidarte, queriendo caminar contigo, queriendo construir algo real y bonito, paso a paso. En tu cumpleaños no solo te deseo felicidad. Te deseo paz en el corazón.</p>
-            <p>Te deseo sueños que te ilusionen, días que te abracen suave y personas que te amen bien. Te deseo que nunca olvides lo especial que eres, incluso en los días en que tú no lo veas.</p>
-            <p>Yo estoy aquí. No perfecto, pero sincero. Con el mismo amor que nació al principio, pero ahora más fuerte, más profundo y más consciente. Con ganas de seguir escribiendo esta historia contigo, capítulo a capítulo, sin promesas vacías, solo con verdad.</p>
-            <p><strong>Feliz cumpleaños, mi Ana. Gracias por existir.</strong> Gracias por estos cuatro meses que ya forman parte de mí. Y gracias, sobre todo, por seguir aquí.</p>
-            <p style="text-align: right;"><strong>Con todo mi amor,<br>Maykel</strong></p>
+            <p>Celebro el día en que llegaste a este mundo y el día en que llegaste al mío. Aunque estas palabras son un regalo, son solo un intento de expresar todo lo que siento.</p>
+            <p>Han pasado cuatro meses desde que nuestras vidas se cruzaron y siento que hemos vivido una historia entera. Nos encontramos sin buscarnos, casi como un susurro del destino.</p>
+            <p>Contigo aprendí que el amor se construye en risas pequeñas, en noches largas y en silencios que no incomodan. Pero también aprendí que el amor verdadero se pone a prueba, duele... y aun así decide quedarse.</p>
+            <p>Gracias por volver, por elegir intentarlo de nuevo, por permitirnos sanar y por crecer conmigo. Te amo con paciencia, con un amor que no busca poseer, sino acompañar.</p>
+            <p>Te deseo paz en el corazón, sueños que te ilusionen y que nunca olvides lo especial que eres. Yo estoy aquí, sincero, con ganas de seguir escribiendo esta historia contigo.</p>
+            <p style="text-align: right;"><strong>Con todo mi amor, Maykel</strong></p>
         </div>
         <button class="btn-main" onclick="showStep(7)">Ver video ❤️</button>
     </div>
@@ -168,8 +158,8 @@
                 <source src="https://www.dropbox.com/scl/fi/t1eazjksgs58bkmu1mxi5/user-G0Svz1V0bF0yeTK1ti0WMfRZ_gen_01kdzw4t35ektvm604krzzcv19_watermarked.mp4?rlkey=n0eomxos434ci17tnllcnysvm&st=7u8z5pt9&dl=1" type="video/mp4">
             </video>
         </div>
-        <p id="video-final-msg">"Feliz cumpleaños Mi Amor, ese día y esa hora en la que decidi entrar a ese juego han sido de las mejores decisiones de mi vida"</p>
-        <button class="btn-ghost" onclick="location.reload()">Ver de nuevo ❤️</button>
+        <div id="video-final-msg"></div>
+        <button id="final-reset-btn" class="btn-main hidden" style="margin-top: 20px;" onclick="location.reload()">Ver de nuevo ❤️</button>
     </div>
 
     <script>
@@ -181,13 +171,50 @@
         function showStep(n) {
             document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
             document.getElementById('step' + n).classList.remove('hidden');
-            if(n === 4) runFakeError();
-            if(n === 5) initShrinkTroll();
             if(n === 7) {
+                document.body.classList.add('allow-scroll');
                 const v = document.getElementById('final-video');
                 v.play();
-                v.onended = () => { document.getElementById('video-final-msg').style.opacity = "1"; };
+                v.onended = () => { 
+                    typeWriter("Feliz cumpleaños Mi Amor, ese día y esa hora en la que decidí entrar a ese juego han sido de las mejores decisiones de mi vida");
+                };
+            } else {
+                document.body.classList.remove('allow-scroll');
             }
+            if(n === 4) runFakeError();
+            if(n === 5) initShrinkTroll();
+        }
+
+        function runFakeError() {
+            const box = document.getElementById('console');
+            const logs = [
+                "> Iniciando protocolo de borrado...",
+                "> Localizando base de datos 'Nosotros'...",
+                "> Eliminando recuerdos de 4 meses...",
+                "> ADVERTENCIA: Bloqueo emocional detectado.",
+                "> Buscando archivos de respaldo...",
+                "> Error: Maykel.exe no permite borrar a Ana.",
+                "> Corazón sobrecalentado...",
+                "> Restaurando sorpresa para la princesa..."
+            ];
+            let i = 0;
+            const timer = setInterval(() => {
+                if(i < logs.length) box.innerHTML += logs[i++] + "<br>";
+                else { clearInterval(timer); document.getElementById('repair-btn').classList.remove('hidden'); }
+            }, 1000);
+        }
+
+        function typeWriter(text) {
+            const container = document.getElementById('video-final-msg');
+            container.innerHTML = "";
+            text.split("").forEach((char, i) => {
+                const span = document.createElement('span');
+                span.innerText = char === " " ? "\u00A0" : char; // Mantiene espacios reales
+                span.className = 'typewriter-char';
+                span.style.animationDelay = (i * 0.08) + "s";
+                container.appendChild(span);
+            });
+            setTimeout(() => document.getElementById('final-reset-btn').classList.remove('hidden'), text.length * 80 + 1000);
         }
 
         function moverBoton() {
@@ -200,16 +227,6 @@
         function transformBtn() {
             const btn = document.getElementById('fake-delete-btn');
             btn.innerText = "¡BORRAR TODO! 😱"; btn.style.background = "black";
-        }
-
-        function runFakeError() {
-            const box = document.getElementById('console');
-            const logs = ["> Buscando archivos...", "> Analizando 'Ana_y_Maykel'...", "> Iniciando borrado...", "> ERROR: Sentimientos detectados.", "> Restaurando sistema...", "> Acceso concedido."];
-            let i = 0;
-            const timer = setInterval(() => {
-                if(i < logs.length) { box.innerHTML += logs[i++] + "<br>"; }
-                else { clearInterval(timer); document.getElementById('repair-btn').classList.remove('hidden'); }
-            }, 1000);
         }
 
         function initShrinkTroll() {
