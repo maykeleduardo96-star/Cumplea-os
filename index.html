@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para mi Ana ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
@@ -14,16 +14,10 @@
             display: flex; align-items: center; justify-content: center;
             background: #0b0b1a url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1000') no-repeat center center;
             background-size: cover;
-            touch-action: manipulation;
         }
 
         .allow-scroll { overflow-y: auto !important; display: block !important; padding: 20px 0; }
-
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%); 
-            z-index: 1; 
-        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%); z-index: 1; }
 
         .card {
             position: relative; z-index: 10;
@@ -31,21 +25,30 @@
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 35px; padding: 30px 20px;
-            width: 90%; max-width: 400px; min-height: 500px;
+            width: 90%; max-width: 420px; min-height: 520px;
             margin: auto; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             text-align: center; color: white;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; margin: 0 0 15px 0; color: #ff99cc; text-shadow: 0 0 20px rgba(255, 153, 204, 0.6); }
-        
-        .letter-content {
-            text-align: left; font-size: 0.95rem; max-height: 280px;
-            overflow-y: auto; padding-right: 10px; margin-bottom: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;
-            line-height: 1.6;
+        .error-console { 
+            color: #ff3333; font-family: 'Courier Prime', monospace; font-size: 0.75rem; text-align: left; 
+            background: rgba(0,0,0,0.85); padding: 15px; border-radius: 15px; 
+            width: 100%; height: 320px; border: 1px solid #ff3333; overflow-y: auto;
+            line-height: 1.3;
         }
+
+        .typewriter-box {
+            text-align: left; font-family: 'Courier Prime', monospace; font-size: 0.92rem;
+            height: 330px; overflow-y: auto; width: 100%;
+            padding: 15px; background: rgba(0,0,0,0.2); border-radius: 15px;
+            line-height: 1.5; color: #fff; margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        #cursor { border-left: 2px solid #ff99cc; animation: blink 0.7s infinite; margin-left: 2px; }
+        @keyframes blink { 50% { border-color: transparent; } }
 
         .btn-main {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
@@ -54,102 +57,78 @@
             width: 100%; max-width: 260px; cursor: pointer;
             box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
             text-transform: uppercase; letter-spacing: 1px;
+            margin-top: 10px;
         }
 
-        .btn-ghost { 
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); 
-            padding: 12px; border-radius: 50px; color: white; width: 100%; 
-            max-width: 260px; font-size: 0.9rem; margin-top: 15px; cursor: pointer;
-        }
-
-        .error-console { 
-            color: #ff3333; font-family: 'Courier New', monospace; font-size: 0.8rem; text-align: left; 
-            background: rgba(0,0,0,0.8); padding: 15px; border-radius: 15px; 
-            width: 100%; min-height: 180px; border: 1px solid #ff3333;
-        }
-
-        /* TEXTO MÁGICO FINAL */
+        .video-container { width: 100%; border-radius: 15px; overflow: hidden; border: 2px solid #ff99cc; background: #000; margin-bottom: 10px; }
+        video { width: 100%; max-height: 220px; display: block; }
+        
+        /* CORRECCIÓN DE LETRAS ENTRECORTADAS */
         #video-final-msg { 
-            margin-top: 20px; font-family: 'Dancing Script', cursive; font-size: 1.6rem;
-            color: #fff; min-height: 100px;
+            width: 100%; font-family: 'Dancing Script', cursive; font-size: 1.5rem; 
+            color: #fff; text-shadow: 0 0 15px #ff00ff; min-height: 80px;
+            padding: 0 5px; box-sizing: border-box;
+            word-break: keep-all; /* Evita que las palabras se corten */
+            overflow-wrap: break-word;
         }
 
-        .typewriter-char {
-            opacity: 0; display: inline-block;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-            animation: appearChar 0.5s forwards;
-            white-space: pre; /* Mantiene los espacios */
-        }
-
-        @keyframes appearChar {
-            from { opacity: 0; transform: scale(3); filter: blur(10px); }
-            to { opacity: 1; transform: scale(1); filter: blur(0); }
-        }
+        .char-final { opacity: 0; display: inline-block; animation: charFade 0.4s forwards; white-space: pre-wrap; }
+        @keyframes charFade { from { opacity: 0; transform: scale(1.5); } to { opacity: 1; transform: scale(1); } }
 
         .hidden { display: none !important; }
-        .video-container { width: 100%; border-radius: 15px; overflow: hidden; border: 2px solid #ff99cc; background: #000; }
-        video { width: 100%; max-height: 220px; display: block; }
     </style>
 </head>
 <body>
 
     <div class="overlay"></div>
-    <audio id="pookie-audio" loop>
-        <source src="https://www.dropbox.com/scl/fi/i8pjh6dor59ef4xzu6hsf/Ed-Sheeran-Photograph-Subtitulado-al-Espa-ol..mp3?rlkey=vpe1cixqj20q3h7six0odizjb&st=2robfvey&dl=1" type="audio/mpeg">
-    </audio>
+
+    <audio id="pookie-audio" loop><source src="https://www.dropbox.com/scl/fi/i8pjh6dor59ef4xzu6hsf/Ed-Sheeran-Photograph-Subtitulado-al-Espa-ol..mp3?rlkey=vpe1cixqj20q3h7six0odizjb&st=2robfvey&dl=1" type="audio/mpeg"></audio>
+    <audio id="typing-sound" loop><source src="https://www.soundjay.com/communication/typewriter-mechanical-1.mp3" type="audio/mpeg"></audio>
 
     <div id="step1" class="card">
-        <h1>Hola Ana ❤️</h1>
-        <p>Este no es un sitio web común.<br>Es un pedacito de mi corazón para ti.</p>
+        <h1 style="font-size: 3rem;">Hola Ana ❤️</h1>
+        <p>¿Lista para tu sorpresa?<br>Haz clic para entrar.</p>
         <button class="btn-main" onclick="iniciarExperiencia()">Amonos</button>
     </div>
 
     <div id="step2" class="card hidden">
-        <div style="width: 170px; height: 170px; border-radius: 20px; border: 3px solid #ff99cc; overflow: hidden; margin-bottom: 20px;">
+        <div style="width: 150px; height: 150px; border-radius: 20px; border: 3px solid #ff99cc; overflow: hidden; margin-bottom: 15px;">
             <img src="https://www.dropbox.com/scl/fi/kktnissm1iyzltkt0bj7v/8f214fd9-fee4-4ce7-a275-17b4b6437de4.jpg?rlkey=qjqvxraqhbzdanaulrurjd2wj&st=dswefh8d&dl=1" style="width:100%; height:100%; object-fit:cover;">
         </div>
-        <h2>Confirmación Crítica</h2>
-        <p>El sistema necesita saber si eres la cumpleañera más hermosa antes de revelar el regalo.</p>
+        <h2>Paso 1: Seguridad</h2>
+        <p>¿Es ella la mujer más hermosa de este mundo?</p>
         <div style="height: 60px; width: 100%; position: relative; display: flex; justify-content: center;">
-            <button id="troll-btn" class="btn-main" onclick="moverBoton()">¡SÍ, SOY YO! 😍</button>
+            <button id="troll-btn" class="btn-main" onclick="moverBoton()">¡SÍ, ES ELLA! 😍</button>
         </div>
-        <button class="btn-ghost" onclick="showStep(3)">No soy yo (Peligro)</button>
+        <button class="btn-ghost" onclick="showStep(3)" style="background:transparent; border:none; color:rgba(255,255,255,0.4); margin-top:10px; cursor:pointer;">No soy yo...</button>
     </div>
 
     <div id="step3" class="card hidden">
-        <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" style="width:100px; margin-bottom:15px;">
+        <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" style="width:80px; margin-bottom:10px;">
         <h2>¿CÓMO QUE NO? 🥺</h2>
-        <p>Si dices que no eres tú, el sistema interpretará que eres un intruso y borrará todos los recuerdos de estos 4 meses.</p>
-        <button class="btn-main" id="fake-delete-btn" onmouseover="transformBtn()" onclick="showStep(4)">¡MENTIRA! SÍ SOY YO 😱</button>
+        <p>Si confirmas esto, el sistema borrará cada recuerdo, cada mensaje y cada momento juntos.</p>
+        <button class="btn-main" id="fake-delete-btn" onmouseover="transformBtn()" onclick="showStep(4)">¡DETENER! SÍ SOY YO 😱</button>
     </div>
 
     <div id="step4" class="card hidden">
-        <h2 style="color: #ff3333;">FALLO EN EL NÚCLEO</h2>
+        <h2 style="color: #ff3333;">FALLO CRÍTICO DE ACCESO</h2>
         <div class="error-console" id="console"></div>
-        <button id="repair-btn" class="btn-main hidden" onclick="showStep(5)" style="margin-top:15px;">INTENTAR RECUPERACIÓN ❤️</button>
+        <button id="repair-btn" class="btn-main hidden" onclick="showStep(5)">REPARAR ACCESO ❤️</button>
     </div>
 
     <div id="step5" class="card hidden">
-        <img src="https://media.tenor.com/YZA_f_6xO8AAAAAi/tkthao219-bubududu.gif" style="width:100px;">
-        <h2>Nivel de Amor Requerido</h2>
-        <p>Para restaurar los archivos, el sensor de presión debe detectar cuánto me amas.</p>
+        <img src="https://media.tenor.com/YZA_f_6xO8AAAAAi/tkthao219-bubududu.gif" style="width:90px;">
+        <h2>Un último paso...</h2>
+        <p>El sensor de amor debe estar al 100%. ¿Me amas mucho?</p>
         <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
             <button id="shrink-btn" class="btn-main" style="width: auto; padding: 15px 40px;" onclick="showStep(6)">¡SÍ, MUCHO! ❤️</button>
         </div>
     </div>
 
     <div id="step6" class="card hidden">
-        <h1>Mi Ana... ❤️</h1>
-        <div class="letter-content">
-            <p><strong>Feliz cumpleaños, mi Ana. Hoy celebro tu vida.</strong></p>
-            <p>Celebro el día en que llegaste a este mundo y el día en que llegaste al mío. Aunque estas palabras son un regalo, son solo un intento de expresar todo lo que siento.</p>
-            <p>Han pasado cuatro meses desde que nuestras vidas se cruzaron y siento que hemos vivido una historia entera. Nos encontramos sin buscarnos, casi como un susurro del destino.</p>
-            <p>Contigo aprendí que el amor se construye en risas pequeñas, en noches largas y en silencios que no incomodan. Pero también aprendí que el amor verdadero se pone a prueba, duele... y aun así decide quedarse.</p>
-            <p>Gracias por volver, por elegir intentarlo de nuevo, por permitirnos sanar y por crecer conmigo. Te amo con paciencia, con un amor que no busca poseer, sino acompañar.</p>
-            <p>Te deseo paz en el corazón, sueños que te ilusionen y que nunca olvides lo especial que eres. Yo estoy aquí, sincero, con ganas de seguir escribiendo esta historia contigo.</p>
-            <p style="text-align: right;"><strong>Con todo mi amor, Maykel</strong></p>
-        </div>
-        <button class="btn-main" onclick="showStep(7)">Ver video ❤️</button>
+        <h1 style="font-size: 2rem;">Para Mi Ana... ❤️</h1>
+        <div class="typewriter-box" id="letter-box"><span id="letter-text"></span><span id="cursor"></span></div>
+        <button id="btn-to-video" class="btn-main hidden" onclick="showStep(7)">Ver video ❤️</button>
     </div>
 
     <div id="step7" class="card hidden">
@@ -159,58 +138,87 @@
             </video>
         </div>
         <div id="video-final-msg"></div>
-        <button id="final-reset-btn" class="btn-main hidden" style="margin-top: 20px;" onclick="location.reload()">Ver de nuevo ❤️</button>
+        <button id="final-reset-btn" class="btn-main hidden" onclick="location.reload()">Ver de nuevo ❤️</button>
     </div>
 
     <script>
         const audio = document.getElementById('pookie-audio');
+        const typeSound = document.getElementById('typing-sound');
         let shrinkScale = 1;
+
+        const cartaTexto = `Feliz cumpleaños, mi Ana. Hoy celebro tu vida.
+
+Celebro el día en que llegaste a este mundo y, sin saberlo, el día en que algún día llegarías también al mío.
+
+Y aunque estas palabras son un regalo, en realidad son solo un intento —imperfecto— de expresar todo lo que siento por ti. Han pasado apenas cuatro meses desde que nuestras vidas se cruzaron, y aun así siento que en ese corto tiempo hemos vivido una historia entera.
+
+Nos encontramos sin buscarnos, casi como un susurro del destino. Primero fue una coincidencia, luego una conversación, después una costumbre… y sin darnos cuenta, nos convertimos en hogar el uno para el otro.
+
+Contigo aprendí que el amor no siempre llega con ruido, sino con calma. Que a veces se construye en risas pequeñas, en noches largas, en juegos compartidos, en películas vistas juntos, en silencios que no incomodan.
+
+Pero también aprendí que amar no es fácil. Que el amor verdadero se pone a prueba, duele, tambalea… y aun así decide quedarse. Hemos pasado por momentos hermosos y por momentos difíciles. Hubo días en los que sentí miedo de perderte, noches en las que el silencio pesó demasiado y emociones que nos desbordaron a ambos.
+
+Pero aquí estamos. Y eso, para mí, significa todo. Gracias por volver, por mirar hacia nosotros, por elegir intentarlo de nuevo. Gracias por abrir tu corazón cuando no era fácil hacerlo, por permitirnos sanar, por crecer conmigo.
+
+Quiero que sepas que te amo no solo por quien eres cuando todo va bien, sino también por quien eres cuando dudas, cuando te cierras, cuando te cuesta. Te amo con conciencia, con paciencia, con un amor que no busca poseer, sino acompañar.
+
+Te amo queriendo cuidarte, queriendo caminar contigo, queriendo construir algo real y bonito, paso a paso. En tu cumpleaños no solo te deseo felicidad. Te deseo paz en el corazón.
+
+Yo estoy aquí. No perfecto, pero sincero. Con el mismo amor que nació al principio, pero ahora más fuerte, más profundo y más consciente. Gracias por existir, Ana. Gracias por estos cuatro meses y gracias por seguir aquí.
+
+Con todo mi amor, Maykel`;
 
         function iniciarExperiencia() { audio.play(); showStep(2); }
 
         function showStep(n) {
             document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
             document.getElementById('step' + n).classList.remove('hidden');
+            if(n === 4) runFakeError();
+            if(n === 6) startTypewriter();
             if(n === 7) {
                 document.body.classList.add('allow-scroll');
                 const v = document.getElementById('final-video');
                 v.play();
-                v.onended = () => { 
-                    typeWriter("Feliz cumpleaños Mi Amor, ese día y esa hora en la que decidí entrar a ese juego han sido de las mejores decisiones de mi vida");
-                };
-            } else {
-                document.body.classList.remove('allow-scroll');
+                v.onended = () => typeWriterFinal("Feliz cumpleaños Mi Amor, ese día y esa hora en la que decidí entrar a ese juego han sido de las mejores decisiones de mi vida");
             }
-            if(n === 4) runFakeError();
-            if(n === 5) initShrinkTroll();
         }
 
         function runFakeError() {
             const box = document.getElementById('console');
             const logs = [
-                "> Iniciando protocolo de borrado...",
-                "> Localizando base de datos 'Nosotros'...",
-                "> Eliminando recuerdos de 4 meses...",
-                "> ADVERTENCIA: Bloqueo emocional detectado.",
-                "> Buscando archivos de respaldo...",
-                "> Error: Maykel.exe no permite borrar a Ana.",
-                "> Corazón sobrecalentado...",
-                "> Restaurando sorpresa para la princesa..."
+                "> Iniciando protocolo de borrado...", "> Localizando base de datos 'Nosotros'...", "> Error: Maykel_System deniega el acceso.", "> Intentando forzar formateo...", "> ADVERTENCIA: Bloqueo emocional detectado.", "> Buscando archivos de respaldo...", "> [!] ERROR: Ana.love es un archivo de sistema vital.", "> Corazón sobrecalentado...", "> El sistema detecta resistencia emocional...", "> No se pueden eliminar las risas...", "> No se pueden eliminar los juegos juntos...", "> Recuperando fragmentos de felicidad...", "> Restaurando sector 'Confianza'...", "> Optimizando latidos por minuto...", "> Error 502: La distancia es irrelevante.", "> Reconectando con el corazón de Ana...", "> [OK] Sincronización completa.", "> Cargando 'Futuro_Juntos.exe'...", "> [SISTEMA] Ana es la prioridad absoluta.", "> Acceso concedido.",
+                // 15 LÍNEAS NUEVAS DRAMÁTICAS
+                "> Analizando latidos... Ritmo anormal detectado.", "> Diagnóstico: Amor profundo e irreversible.", "> Intentando borrar 'Esa primera vez'... FALLO.", "> Intentando borrar 'Nuestras charlas'... FALLO.", "> Protegiendo la carpeta 'Sus risas'...", "> Reforzando seguridad en 'Nuestros sueños'...", "> Aviso: El núcleo de Maykel solo acepta a Ana.", "> Sincronizando alma.sys con princesa.ana...", "> Limpiando errores del pasado... 100% completado.", "> Instalando parche 'Felicidad Eterna'...", "> Buscando el mejor regalo del mundo...", "> Resultado: Ella ya es el regalo.", "> Preparando sorpresa de cumpleaños...", "> Verificando nivel de hermosura... Fuera de rango.", "> [ÉXITO] Sistema restaurado con amor infinito."
             ];
             let i = 0;
             const timer = setInterval(() => {
-                if(i < logs.length) box.innerHTML += logs[i++] + "<br>";
+                if(i < logs.length) { box.innerHTML += logs[i++] + "<br>"; box.scrollTop = box.scrollHeight; }
                 else { clearInterval(timer); document.getElementById('repair-btn').classList.remove('hidden'); }
-            }, 1000);
+            }, 450);
         }
 
-        function typeWriter(text) {
+        function startTypewriter() {
+            const target = document.getElementById('letter-text');
+            let i = 0; typeSound.play();
+            const timer = setInterval(() => {
+                if (i < cartaTexto.length) {
+                    target.textContent += cartaTexto.charAt(i++);
+                    document.getElementById('letter-box').scrollTop = document.getElementById('letter-box').scrollHeight;
+                } else {
+                    clearInterval(timer); typeSound.pause();
+                    document.getElementById('cursor').style.display = 'none';
+                    document.getElementById('btn-to-video').classList.remove('hidden');
+                }
+            }, 40);
+        }
+
+        function typeWriterFinal(text) {
             const container = document.getElementById('video-final-msg');
             container.innerHTML = "";
             text.split("").forEach((char, i) => {
                 const span = document.createElement('span');
-                span.innerText = char === " " ? "\u00A0" : char; // Mantiene espacios reales
-                span.className = 'typewriter-char';
+                span.innerText = char === " " ? "\u00A0" : char;
+                span.className = 'char-final';
                 span.style.animationDelay = (i * 0.08) + "s";
                 container.appendChild(span);
             });
@@ -220,25 +228,24 @@
         function moverBoton() {
             const btn = document.getElementById('troll-btn');
             btn.style.position = 'fixed';
-            btn.style.left = Math.random() * (window.innerWidth - 150) + 'px';
-            btn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            btn.style.left = Math.random() * (window.innerWidth - 180) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 80) + 'px';
         }
 
         function transformBtn() {
             const btn = document.getElementById('fake-delete-btn');
-            btn.innerText = "¡BORRAR TODO! 😱"; btn.style.background = "black";
+            btn.innerText = "¡DÉJAME ENTRAR! 😭"; btn.style.background = "black";
         }
 
         function initShrinkTroll() {
             const btn = document.getElementById('shrink-btn');
             const handler = (e) => {
                 if (shrinkScale > 0.3) {
-                    e.preventDefault();
-                    shrinkScale -= 0.15;
+                    e.preventDefault(); shrinkScale -= 0.15;
                     btn.style.transform = `scale(${shrinkScale})`;
                 }
             };
-            btn.addEventListener('touchstart', handler);
+            btn.addEventListener('touchstart', handler, {passive: false});
             btn.addEventListener('mouseover', handler);
         }
     </script>
