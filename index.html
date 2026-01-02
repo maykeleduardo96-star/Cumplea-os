@@ -3,149 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para mi Pookie ❤️</title>
+    <title>Para mi Amor ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* FONDO OPTIMIZADO */
         body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            overflow: hidden; /* Evita el scroll innecesario en Android */
-            font-family: 'Quicksand', sans-serif;
-            display: flex;
-            align-items: center; justify-content: center;
-            background: #000 url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1000') no-repeat center center;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; font-family: 'Quicksand', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            background: #0b0b1a url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1000') no-repeat center center;
             background-size: cover;
-            touch-action: manipulation; /* Mejora la respuesta táctil */
+            touch-action: manipulation;
         }
 
-        .overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1; }
 
-        /* CARD ADAPTADA A PANTALLAS PEQUEÑAS */
         .card {
-            position: relative;
-            z-index: 10;
+            position: relative; z-index: 10;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 30px 20px;
-            width: 85%; /* Ancho ideal para Android */
-            max-width: 350px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            color: white;
-            animation: fadeIn 0.6s ease-out;
+            border-radius: 25px; padding: 35px 25px;
+            width: 85%; max-width: 380px; text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7); color: white;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 10px; color: #ff99cc; }
-        p { font-size: 1rem; line-height: 1.4; margin-bottom: 20px; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin-bottom: 10px; color: #ff99cc; text-shadow: 0 0 10px rgba(255, 153, 204, 0.5); }
+        h2 { font-size: 1.5rem; margin-bottom: 15px; }
+        p { font-size: 1rem; line-height: 1.4; margin-bottom: 25px; color: #f0f0f0; }
 
-        /* BOTONES TÁCTILES (MÁS GRANDES) */
         .btn-main {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            width: 100%; /* Botón ancho para pulgares */
-            margin-bottom: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+            border: none; padding: 16px; border-radius: 50px;
+            color: white; font-size: 1.2rem; font-weight: 600;
+            width: 100%; margin-bottom: 12px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+            transition: 0.3s;
         }
 
-        .btn-ghost {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 12px;
-            border-radius: 50px;
-            color: white;
-            width: 100%;
-            cursor: pointer;
+        .btn-ghost { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 12px; border-radius: 50px; color: white; width: 100%; font-size: 0.9rem; margin-top: 10px; }
+
+        /* FOTO DE REFERENCIA EN EL PASO DE CONFIRMACIÓN */
+        .reference-photo {
+            width: 200px; height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            border: 3px solid #ff99cc;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 153, 204, 0.5);
+            background: rgba(255,255,255,0.05);
         }
+        .reference-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-        .cat-img { width: 120px; height: auto; margin-bottom: 15px; border-radius: 15px; }
-
+        .cat-gif { width: 100px; margin-bottom: 15px; border-radius: 10px; }
         .hidden { display: none; }
-
-        /* Estilo del botón que huye en móvil */
-        #troll-btn { 
-            position: relative; 
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        .error-console { color: #ff3333; font-family: monospace; font-size: 0.8rem; text-align: left; background: rgba(0,0,0,0.6); padding: 12px; border-radius: 10px; border: 1px solid #ff3333; }
     </style>
 </head>
-<body>
+<body onclick="">
 
     <div class="overlay"></div>
 
+    <audio id="pookie-audio" loop>
+        <source src="https://www.dropbox.com/scl/fi/i8pjh6dor59ef4xzu6hsf/Ed-Sheeran-Photograph-Subtitulado-al-Espa-ol..mp3?rlkey=vpe1cixqj20q3h7six0odizjb&st=2robfvey&dl=1" type="audio/mpeg">
+    </audio>
+
     <div id="step1" class="card">
-        <img src="https://media.tenor.com/ICvYpXpWvGIAAAAi/peach-goma.gif" class="cat-img">
-        <h1>Haiiiii Pookiee ✨</h1>
-        <p>¡Bienvenida a tu sorpresa! <br> Toca el botón para empezar.</p>
-        <button class="btn-main" onclick="showStep(2)">EMPECEMOS !!:P</button>
+        <img src="https://media.tenor.com/ICvYpXpWvGIAAAAi/peach-goma.gif" class="cat-gif">
+        <h1>Hola Amor ✨</h1>
+        <p>¡Bienvenida a tu tutorial especial!<br>¿Lista para comenzar?</p>
+        <button class="btn-main" onclick="iniciarExperiencia()">Amonos</button>
     </div>
 
     <div id="step2" class="card hidden">
-        <img src="https://media.tenor.com/86F-7t6Iu_QAAAAi/tkthao219-bubududu.gif" class="cat-img">
-        <h2>¿Ver tu carta? 💖</h2>
-        <p>Intenta darle a "Siguiente"... si puedes.</p>
-        <button id="troll-btn" class="btn-main" onclick="moverBoton()">Siguiente</button>
-        <button class="btn-ghost" onclick="showStep(3)">No quiero</button>
+        <div class="reference-photo">
+            <img src="https://www.dropbox.com/scl/fi/kktnissm1iyzltkt0bj7v/8f214fd9-fee4-4ce7-a275-17b4b6437de4.jpg?rlkey=qjqvxraqhbzdanaulrurjd2wj&st=dswefh8d&dl=1" alt="Referencia">
+        </div>
+        <h2>Paso 1: Confirmación</h2>
+        <p>Confirma si la persona de la foto es la cumpleañera más hermosa de todo el mundo.</p>
+        <div style="height: 80px; position: relative; margin-bottom: 20px;">
+            <button id="troll-btn" class="btn-main" onclick="moverBoton()">Confirmar</button>
+        </div>
+        <button class="btn-ghost" onclick="showStep(3)">No soy yo</button>
     </div>
 
     <div id="step3" class="card hidden">
-        <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" class="cat-img">
-        <h2>¿En serio? 😭</h2>
-        <p>Me dejas solito y con el corazón roto... ¿Segura que quieres rechazarme?</p>
-        <button class="btn-main" onclick="showStep(4)">¡Perdón! Sí quiero verla ❤️</button>
+        <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" class="cat-gif">
+        <h2>¿Cómo que no? 🥺</h2>
+        <p>Si no eres tú, entonces debo borrar todos los archivos del regalo...</p>
+        <button class="btn-main" id="fake-delete-btn" onmouseover="transformBtn()" onclick="showStep(4)">¡Sí soy yo! Detente</button>
     </div>
 
     <div id="step4" class="card hidden">
-        <img src="https://media.tenor.com/97_Yv9M4_3AAAAAi/sweet-love.gif" class="cat-img">
-        <h1>Mi Pookie 🌹</h1>
-        <div style="text-align: left; font-size: 0.9rem; max-height: 150px; overflow-y: auto; padding: 10px;">
-            <p><strong>Feliz Cumpleaños amor.</strong><br><br>
-            Eres la persona más maravillosa y quería que hoy sonrieras. Espero que te guste tu regalo físico tanto como este pequeño código hecho para ti.</p>
+        <img src="https://media.tenor.com/079_9W57Y78AAAAi/loading-load.gif" class="cat-gif" style="width: 80px;">
+        <h2 style="color: #ff3333;">SISTEMA DAÑADO</h2>
+        <div class="error-console" id="console">
+            > Detectando intruso...<br>
         </div>
-        <button class="btn-main" onclick="location.reload()">REINTENTAR ❤️</button>
+        <p id="status" style="margin-top: 10px;">Borrando fotos en 3, 2, 1...</p>
+        <button id="repair-btn" class="btn-main hidden" onclick="showStep(5)">REPARAR ARCHIVOS ❤️</button>
+    </div>
+
+    <div id="step5" class="card hidden">
+        <img src="https://media.tenor.com/97_Yv9M4_3AAAAAi/sweet-love.gif" class="cat-gif">
+        <h1>¡Era broma! 😂</h1>
+        <p><strong>¡Feliz Cumpleaños Amor!</strong></p>
+        <div style="text-align: left; font-size: 0.9rem; max-height: 140px; overflow-y: auto; padding: 10px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p>Jamás borraría nada de lo nuestro. Eres mi persona favorita y quería que sonrieras antes de ver esto. Te amo muchísimo. ❤️</p>
+        </div>
+        <button class="btn-main" style="margin-top: 15px;" onclick="location.reload()">VER DE NUEVO ❤️</button>
     </div>
 
     <script>
-        function showStep(s) {
+        const audio = document.getElementById('pookie-audio');
+
+        function iniciarExperiencia() {
+            audio.play().catch(e => console.log("Audio iniciado"));
+            showStep(2);
+        }
+
+        function showStep(n) {
             document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-            document.getElementById('step' + s).classList.remove('hidden');
+            document.getElementById('step' + n).classList.remove('hidden');
+            if(n === 4) runFakeError();
         }
 
         function moverBoton() {
             const btn = document.getElementById('troll-btn');
-            
-            // En móvil usamos position fixed para que salte por toda la pantalla
             btn.style.position = 'fixed';
-            
-            // Calculamos límites para que no se salga de la pantalla
-            const padding = 50;
-            const maxX = window.innerWidth - btn.offsetWidth - padding;
-            const maxY = window.innerHeight - btn.offsetHeight - padding;
-            
-            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-            
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
+            const pad = 60;
+            const x = Math.max(pad, Math.floor(Math.random() * (window.innerWidth - btn.offsetWidth - pad)));
+            const y = Math.max(pad, Math.floor(Math.random() * (window.innerHeight - btn.offsetHeight - pad)));
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function transformBtn() {
+            const btn = document.getElementById('fake-delete-btn');
+            btn.innerText = "¡BORRAR TODO! 😱";
+            btn.style.background = "black";
+        }
+
+        function runFakeError() {
+            const box = document.getElementById('console');
+            const logs = [
+                "> Error de seguridad...",
+                "> Iniciando formateo...",
+                "> Eliminando carpeta: 'Nosotros'...",
+                "> ERROR: Amor infinito detectado.",
+                "> Deteniendo borrado...",
+                "> Restaurando sorpresa..."
+            ];
+            let i = 0;
+            const timer = setInterval(() => {
+                if(i < logs.length) {
+                    box.innerHTML += logs[i] + "<br>";
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    document.getElementById('status').innerText = "¡Sistema recuperado!";
+                    document.getElementById('repair-btn').classList.remove('hidden');
+                }
+            }, 1000);
         }
     </script>
 </body>
