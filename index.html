@@ -16,7 +16,6 @@
             background-size: cover;
         }
 
-        .allow-scroll { overflow-y: auto !important; display: block !important; padding: 20px 0; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%); z-index: 1; }
 
         .card {
@@ -36,8 +35,11 @@
             color: #ff3333; font-family: 'Courier Prime', monospace; font-size: 0.75rem; text-align: left; 
             background: rgba(0,0,0,0.85); padding: 15px; border-radius: 15px; 
             width: 100%; height: 320px; border: 1px solid #ff3333; overflow-y: auto;
-            line-height: 1.3;
+            line-height: 1.5;
         }
+
+        .progress-container { width: 100%; background: rgba(255,255,255,0.1); border-radius: 20px; height: 25px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.3); overflow: hidden; display: none; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff416c, #ff4b2b); transition: width 0.2s ease; }
 
         .typewriter-box {
             text-align: left; font-family: 'Courier Prime', monospace; font-size: 0.92rem;
@@ -57,23 +59,26 @@
             width: 100%; max-width: 260px; cursor: pointer;
             box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
             text-transform: uppercase; letter-spacing: 1px;
-            margin-top: 10px;
         }
 
         .video-container { width: 100%; border-radius: 15px; overflow: hidden; border: 2px solid #ff99cc; background: #000; margin-bottom: 10px; }
         video { width: 100%; max-height: 220px; display: block; }
         
-        /* CORRECCIÓN DE LETRAS ENTRECORTADAS */
+        /* SOLUCIÓN AL TEXTO QUE SE ROMPE */
         #video-final-msg { 
             width: 100%; font-family: 'Dancing Script', cursive; font-size: 1.5rem; 
-            color: #fff; text-shadow: 0 0 15px #ff00ff; min-height: 80px;
-            padding: 0 5px; box-sizing: border-box;
-            word-break: keep-all; /* Evita que las palabras se corten */
-            overflow-wrap: break-word;
+            color: #fff; text-shadow: 0 0 10px rgba(255, 0, 255, 0.5); min-height: 100px;
+            padding: 10px; text-align: center;
+            line-height: 1.3;
+            overflow-wrap: break-word; /* Asegura que el contenedor respete los bordes */
         }
 
-        .char-final { opacity: 0; display: inline-block; animation: charFade 0.4s forwards; white-space: pre-wrap; }
-        @keyframes charFade { from { opacity: 0; transform: scale(1.5); } to { opacity: 1; transform: scale(1); } }
+        .char-final { 
+            opacity: 0; 
+            display: inline; /* Cambiado de inline-block a inline para evitar rupturas de palabra */
+            animation: charFade 0.4s forwards; 
+        }
+        @keyframes charFade { from { opacity: 0; } to { opacity: 1; } }
 
         .hidden { display: none !important; }
     </style>
@@ -96,16 +101,16 @@
             <img src="https://www.dropbox.com/scl/fi/kktnissm1iyzltkt0bj7v/8f214fd9-fee4-4ce7-a275-17b4b6437de4.jpg?rlkey=qjqvxraqhbzdanaulrurjd2wj&st=dswefh8d&dl=1" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <h2>Paso 1: Seguridad</h2>
-        <p>¿Es ella la mujer más hermosa de este mundo?</p>
+        <p>¿Eres tú la mujer más hermosa de este mundo?</p>
         <div style="height: 60px; width: 100%; position: relative; display: flex; justify-content: center;">
-            <button id="troll-btn" class="btn-main" onclick="moverBoton()">¡SÍ, ES ELLA! 😍</button>
+            <button id="troll-btn" class="btn-main" onclick="moverBoton()">¡SÍ, SOY YO! 😍</button>
         </div>
-        <button class="btn-ghost" onclick="showStep(3)" style="background:transparent; border:none; color:rgba(255,255,255,0.4); margin-top:10px; cursor:pointer;">No soy yo...</button>
+        <button onclick="showStep(3)" style="background:transparent; border:none; color:rgba(255,255,255,0.6); margin-top:15px; cursor:pointer; font-size: 1.1rem; font-weight: 600;">No soy yo...</button>
     </div>
 
     <div id="step3" class="card hidden">
         <img src="https://media.tenor.com/YTs_C7Y48v0AAAAi/cat-crying.gif" style="width:80px; margin-bottom:10px;">
-        <h2>¿CÓMO QUE NO? 🥺</h2>
+        <h2>¿ESTÁS SEGURA? 🥺</h2>
         <p>Si confirmas esto, el sistema borrará cada recuerdo, cada mensaje y cada momento juntos.</p>
         <button class="btn-main" id="fake-delete-btn" onmouseover="transformBtn()" onclick="showStep(4)">¡DETENER! SÍ SOY YO 😱</button>
     </div>
@@ -118,11 +123,12 @@
 
     <div id="step5" class="card hidden">
         <img src="https://media.tenor.com/YZA_f_6xO8AAAAAi/tkthao219-bubududu.gif" style="width:90px;">
-        <h2>Un último paso...</h2>
-        <p>El sensor de amor debe estar al 100%. ¿Me amas mucho?</p>
-        <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
-            <button id="shrink-btn" class="btn-main" style="width: auto; padding: 15px 40px;" onclick="showStep(6)">¡SÍ, MUCHO! ❤️</button>
+        <h2>Sincronización de Afecto</h2>
+        <p id="amor-instruccion">El núcleo requiere energía. Pulsa repetidamente para demostrar cuánto me amas y liberar el acceso.</p>
+        <div class="progress-container" id="p-cont" style="display: block;">
+            <div class="progress-bar" id="p-bar"></div>
         </div>
+        <button id="btn-amor" class="btn-main" onclick="llenarBarra()">TAC TAC ❤️</button>
     </div>
 
     <div id="step6" class="card hidden">
@@ -138,13 +144,13 @@
             </video>
         </div>
         <div id="video-final-msg"></div>
-        <button id="final-reset-btn" class="btn-main hidden" onclick="location.reload()">Ver de nuevo ❤️</button>
+        <button id="final-reset-btn" class="btn-main hidden" onclick="location.reload()" style="margin-top: 10px;">Ver de nuevo ❤️</button>
     </div>
 
     <script>
         const audio = document.getElementById('pookie-audio');
         const typeSound = document.getElementById('typing-sound');
-        let shrinkScale = 1;
+        let amorProgreso = 0;
 
         const cartaTexto = `Feliz cumpleaños, mi Ana. Hoy celebro tu vida.
 
@@ -176,7 +182,6 @@ Con todo mi amor, Maykel`;
             if(n === 4) runFakeError();
             if(n === 6) startTypewriter();
             if(n === 7) {
-                document.body.classList.add('allow-scroll');
                 const v = document.getElementById('final-video');
                 v.play();
                 v.onended = () => typeWriterFinal("Feliz cumpleaños Mi Amor, ese día y esa hora en la que decidí entrar a ese juego han sido de las mejores decisiones de mi vida");
@@ -187,14 +192,37 @@ Con todo mi amor, Maykel`;
             const box = document.getElementById('console');
             const logs = [
                 "> Iniciando protocolo de borrado...", "> Localizando base de datos 'Nosotros'...", "> Error: Maykel_System deniega el acceso.", "> Intentando forzar formateo...", "> ADVERTENCIA: Bloqueo emocional detectado.", "> Buscando archivos de respaldo...", "> [!] ERROR: Ana.love es un archivo de sistema vital.", "> Corazón sobrecalentado...", "> El sistema detecta resistencia emocional...", "> No se pueden eliminar las risas...", "> No se pueden eliminar los juegos juntos...", "> Recuperando fragmentos de felicidad...", "> Restaurando sector 'Confianza'...", "> Optimizando latidos por minuto...", "> Error 502: La distancia es irrelevante.", "> Reconectando con el corazón de Ana...", "> [OK] Sincronización completa.", "> Cargando 'Futuro_Juntos.exe'...", "> [SISTEMA] Ana es la prioridad absoluta.", "> Acceso concedido.",
-                // 15 LÍNEAS NUEVAS DRAMÁTICAS
                 "> Analizando latidos... Ritmo anormal detectado.", "> Diagnóstico: Amor profundo e irreversible.", "> Intentando borrar 'Esa primera vez'... FALLO.", "> Intentando borrar 'Nuestras charlas'... FALLO.", "> Protegiendo la carpeta 'Sus risas'...", "> Reforzando seguridad en 'Nuestros sueños'...", "> Aviso: El núcleo de Maykel solo acepta a Ana.", "> Sincronizando alma.sys con princesa.ana...", "> Limpiando errores del pasado... 100% completado.", "> Instalando parche 'Felicidad Eterna'...", "> Buscando el mejor regalo del mundo...", "> Resultado: Ella ya es el regalo.", "> Preparando sorpresa de cumpleaños...", "> Verificando nivel de hermosura... Fuera de rango.", "> [ÉXITO] Sistema restaurado con amor infinito."
             ];
+            
             let i = 0;
-            const timer = setInterval(() => {
-                if(i < logs.length) { box.innerHTML += logs[i++] + "<br>"; box.scrollTop = box.scrollHeight; }
-                else { clearInterval(timer); document.getElementById('repair-btn').classList.remove('hidden'); }
-            }, 450);
+            function printLog() {
+                if (i < logs.length) {
+                    box.innerHTML += logs[i++] + "<br>";
+                    box.scrollTop = box.scrollHeight;
+                    
+                    // VELOCIDAD DINÁMICA: 
+                    // Si i <= 15 -> 1.4s (Rápido/Normal)
+                    // Si i > 15 -> 2.2s (Mucho más lento para lectura clara)
+                    let delay = i <= 15 ? 1400 : 2200;
+                    setTimeout(printLog, delay);
+                } else {
+                    document.getElementById('repair-btn').classList.remove('hidden');
+                }
+            }
+            printLog();
+        }
+
+        function llenarBarra() {
+            if(amorProgreso < 100) {
+                amorProgreso += 5;
+                document.getElementById('p-bar').style.width = amorProgreso + "%";
+            }
+            if(amorProgreso >= 100) {
+                document.getElementById('btn-amor').classList.add('hidden');
+                document.getElementById('amor-instruccion').innerHTML = "<span style='color:#ff99cc; font-weight:bold; font-size: 1.1rem;'>¡Carga completada! ❤️<br>Sincronización emocional al 100%.<br>Abriendo carta de Maykel...</span>";
+                setTimeout(() => showStep(6), 3500);
+            }
         }
 
         function startTypewriter() {
@@ -217,7 +245,8 @@ Con todo mi amor, Maykel`;
             container.innerHTML = "";
             text.split("").forEach((char, i) => {
                 const span = document.createElement('span');
-                span.innerText = char === " " ? "\u00A0" : char;
+                // IMPORTANTE: Los espacios deben ser un espacio normal para que el navegador sepa dónde romper línea
+                span.innerText = char;
                 span.className = 'char-final';
                 span.style.animationDelay = (i * 0.08) + "s";
                 container.appendChild(span);
@@ -234,19 +263,7 @@ Con todo mi amor, Maykel`;
 
         function transformBtn() {
             const btn = document.getElementById('fake-delete-btn');
-            btn.innerText = "¡DÉJAME ENTRAR! 😭"; btn.style.background = "black";
-        }
-
-        function initShrinkTroll() {
-            const btn = document.getElementById('shrink-btn');
-            const handler = (e) => {
-                if (shrinkScale > 0.3) {
-                    e.preventDefault(); shrinkScale -= 0.15;
-                    btn.style.transform = `scale(${shrinkScale})`;
-                }
-            };
-            btn.addEventListener('touchstart', handler, {passive: false});
-            btn.addEventListener('mouseover', handler);
+            btn.innerText = "¡SÍ SOY YO! 😭"; btn.style.background = "black";
         }
     </script>
 </body>
